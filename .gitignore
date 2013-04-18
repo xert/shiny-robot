@@ -1,1 +1,4 @@
 /.idea
+/vendor
+/shiny-robot.phar
+/config.ini
