@@ -2,7 +2,7 @@
 <project name="ShinyRobot" default="package">
 
     <target name="package">
-        <delete file="./shiny-robot.phar"/>
+        <delete file="./shiny-robot.phar" quiet="true" />
         <pharpackage
                 destfile="./shiny-robot.phar"
                 basedir="./"
@@ -26,6 +26,7 @@
                 </element>
             </metadata>
         </pharpackage>
+        <chmod file="./shiny-robot.phar" mode="0777" quiet="true" />
     </target>
 
 </project>
