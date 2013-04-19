@@ -39,6 +39,16 @@ class Api
     private $priorityHigh = 5;
     private $priorityAsap = 6;
 
+    /**
+     * @var bool Pokud je TRUE, neprovadi zadne operace zapisu, ale pouze zapisuje do konzole.
+     */
+    private $dryRun = false;
+
+    /**
+     * @var resource Pro zapis pri $dryRun == TRUE.
+     */
+    private $outputStream;
+
     function __construct(array $config, Client $client)
     {
         $this->client = $client;
@@ -133,9 +143,28 @@ class Api
         $api = $this->client->api('issue');
 
         if ($issue->hasId()) {
-            $api->update($issue->getId(), $issue->toArray());
+            if ($this->dryRun) {
+                fwrite($this->outputStream, "Aktualizuji issue s id {$issue->getId()}\n");
+            } else {
+                $api->update($issue->getId(), $issue->toArray());
+            }
         } else {
-            $api->create($issue->toArray());
+            if ($this->dryRun) {
+                fwrite($this->outputStream, "Vytvarim novou issue\n");
+            } else {
+                $api->create($issue->toArray());
+            }
         }
+    }
+
+    /**
+     * @param resource $outputStream
+     * @return Api
+     */
+    public function enableDryRun($outputStream)
+    {
+        $this->dryRun = true;
+        $this->outputStream = $outputStream;
+        return $this;
     }
 }
