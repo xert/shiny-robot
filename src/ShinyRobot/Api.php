@@ -1,0 +1,141 @@
+<?php
+namespace ShinyRobot;
+
+use Redmine\Client;
+
+class Api
+{
+    /**
+     * @var \Redmine\Client
+     */
+    private $client;
+
+    /**
+     * @var int Id Redmine projektu, se kterym se pracuje.
+     */
+    private $projectId;
+
+    /**
+     * @var int Id Redmine trackeru, se kterym se pracuje.
+     */
+    private $trackerId;
+
+    /**
+     * Id custom poli v Redmine.
+     */
+    private $customFieldCount = 38;
+    private $customFieldKey = 37;
+
+    /**
+     * Id statusu v Redminu.
+     */
+    private $stateNew = 1;
+    private $stateClosed = 5;
+
+    /**
+     * Id priorit v Redmine.
+     */
+    private $priorityNormal = 4;
+    private $priorityHigh = 5;
+    private $priorityAsap = 6;
+
+    function __construct(array $config, Client $client)
+    {
+        $this->client = $client;
+        $this->setup($config);
+    }
+
+    private function setup(array $config)
+    {
+        $this->projectId = (int) $config['project'];
+        $this->trackerId = (int) $config['tracker'];
+        $this->stateNew = (int) $config['state_new'];
+        $this->stateClosed = (int) $config['state_closed'];
+        $this->customFieldCount = (int) $config['custom_field_count'];
+        $this->customFieldKey = (int) $config['custom_field_key'];
+        $this->priorityNormal = (int) $config['priority_normal'];
+        $this->priorityHigh = (int) $config['priority_high'];
+        $this->priorityAsap = (int) $config['priority_asap'];
+    }
+
+    /**
+     * @param string $key
+     * @return null|Issue
+     */
+    public function findByKey($key)
+    {
+        $cfKey = 'cf_' . $this->customFieldKey;
+
+        $issues = $this->client->api('issue')->all(array(
+            'project_id' => $this->projectId,
+            'tracker_id' => $this->trackerId,
+            $cfKey       => $key,
+            'status_id'  => '*', // vsechny stavy
+        ));
+
+        if (empty($issues['issues'])) {
+            return null;
+        }
+
+        $data = reset($issues['issues']);
+
+        return new Issue($this, $data);
+    }
+
+    public function createIssue()
+    {
+        $data = array(
+            'project_id' => $this->projectId,
+            'tracker_id' => $this->trackerId,
+            'state_id'   => $this->stateNew
+        );
+
+        return new Issue($this, $data);
+    }
+
+    public function getStateClosed()
+    {
+        return $this->stateClosed;
+    }
+
+    public function getStateNew()
+    {
+        return $this->stateNew;
+    }
+
+    public function getCustomFieldCount()
+    {
+        return $this->customFieldCount;
+    }
+
+    public function getCustomFieldKey()
+    {
+        return $this->customFieldKey;
+    }
+
+    public function getPriorityAsap()
+    {
+        return $this->priorityAsap;
+    }
+
+    public function getPriorityHigh()
+    {
+        return $this->priorityHigh;
+    }
+
+    public function getPriorityNormal()
+    {
+        return $this->priorityNormal;
+    }
+
+    public function save(Issue $issue)
+    {
+        $api = $this->client->api('issue');
+
+        if ($issue->hasId()) {
+            $api->update($issue->getId(), $issue->toArray());
+        } else {
+            $api->create($issue->toArray());
+        }
+    }
+}

@@ -1,0 +1,32 @@
+; adresa Redmine
+url ="https://redmine.corporation.com"
+
+api_key = "abc"
+
+; cela cesta k souboru s logem
+log_file ="/data/www/shiny-robot/test/ShinyRobot/Log/Parser/_files/gdierror.log"
+
+; typ logu, "gdi" nebo "error"
+log_type ="gdi"
+
+; id Redmine projektu, se kterym se pracuje
+project = 3
+
+; id Redmine trackeru, se kterym se pracuje
+tracker = 10
+
+; id custom poli v Redmine
+custom_field_count = 38
+custom_field_key = 37
+
+; id statusu v Redmine
+state_new = 1
+state_closed = 5
+
+; id priorit v Redmine
+priority_normal = 4
+priority_high = 5
+priority_asap = 6
+
+; Kolik maximalne zprav bude zpracovano v jednom behu. Zabrani zasilani tisicu zprav se stejnou chybou.
+limit_processed_messages = 30
