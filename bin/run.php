@@ -1,15 +1,16 @@
 <?php
 require __DIR__ . '/../src/autoload.php';
 
-$opts = getopt('c:');
+$opts = getopt('', array('config:','dry-run'));
 
-if (! isset($opts['c'])) {
-    $msg = "Zadejte cestu ke konfiguracnimu ini souboru pres parametr -c\n";
-    $msg .= "Napr.: php shiny-robot.phar -c=./config.ini\n";
+
+if (! isset($opts['config'])) {
+    $msg = "Zadejte cestu ke konfiguracnimu ini souboru pres parametr --config\n";
+    $msg .= "Napr.: {$argv[0]} --config=./config.ini\n";
     die($msg);
 }
 
-$config = parse_ini_file($opts['c']);
+$config = parse_ini_file($opts['config']);
 
 switch ($config['log_type']) {
     case 'gdi':
