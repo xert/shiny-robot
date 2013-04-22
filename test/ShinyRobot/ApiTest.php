@@ -80,4 +80,14 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $this->api->save($issue);
         \Phake::verify($issues)->update($id, $issue->toArray());
     }
+
+    public function testDryRun()
+    {
+        $stream = fopen('php://memory', 'w');
+        $this->api->enableDryRun($stream);
+
+        rewind($stream);
+        $content = stream_get_contents($stream);
+        $this->assertContains("Dry run", $content);
+    }
 }

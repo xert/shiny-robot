@@ -172,6 +172,7 @@ class Api
     {
         $this->dryRun = true;
         $this->outputStream = $outputStream;
+        fwrite($outputStream, "\nDry run mod. Do Redmine nebudou zapsana zadna data.\n\n");
         return $this;
     }
 }
