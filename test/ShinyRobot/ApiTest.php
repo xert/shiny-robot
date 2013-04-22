@@ -71,6 +71,25 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         \Phake::verify($issues)->create($issue->toArray());
     }
 
+    public function testSaveCreateWithDryRun()
+    {
+        $stream = fopen('php://memory', 'w');
+        $this->api->enableDryRun($stream);
+
+        $issue = new Issue($this->api);
+        $subject = 'is_subject';
+        $issue->setSubject($subject);
+        $issues = \Phake::mock('Redmine\Api\Issue');
+        \Phake::when($this->client)->api('issue')->thenReturn($issues);
+        $this->api->save($issue);
+        \Phake::verify($issues, \Phake::times(0))->create(\Phake::anyParameters());
+
+        rewind($stream);
+        $content = stream_get_contents($stream);
+        $this->assertContains('Vytvarim novou issue', $content);
+        $this->assertContains($subject, $content);
+    }
+
     public function testSaveUpdate()
     {
         $id = 42;
@@ -81,6 +100,24 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         \Phake::verify($issues)->update($id, $issue->toArray());
     }
 
+    public function testSaveUpdateWithDryRun()
+    {
+        $stream = fopen('php://memory', 'w');
+        $this->api->enableDryRun($stream);
+
+        $id = 42;
+        $issue = new Issue($this->api, array('id' => $id));
+        $issues = \Phake::mock('Redmine\Api\Issue');
+        \Phake::when($this->client)->api('issue')->thenReturn($issues);
+        $this->api->save($issue);
+        \Phake::verify($issues, \Phake::times(0))->update(\Phake::anyParameters());
+
+        rewind($stream);
+        $content = stream_get_contents($stream);
+        $this->assertContains('Aktualizuji issue', $content);
+        $this->assertContains((string) $id, $content);
+    }
+
     public function testDryRun()
     {
         $stream = fopen('php://memory', 'w');
@@ -88,6 +125,6 @@ class ApiTest extends \PHPUnit_Framework_TestCase
 
         rewind($stream);
         $content = stream_get_contents($stream);
-        $this->assertContains("Dry run", $content);
+        $this->assertContains('Dry run', $content);
     }
 }

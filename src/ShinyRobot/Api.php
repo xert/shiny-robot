@@ -157,7 +157,9 @@ class Api
             }
         } else {
             if ($this->dryRun) {
-                fwrite($this->outputStream, "Vytvarim novou issue\n");
+                $data = $issue->toArray();
+                $subject = $data['subject'];
+                fwrite($this->outputStream, "Vytvarim novou issue s predmetem: $subject\n");
             } else {
                 $api->create($issue->toArray());
             }
