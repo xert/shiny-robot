@@ -21,6 +21,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         'state_closed' => 4,
         'custom_field_count' => 5,
         'custom_field_key' => 6,
+        'custom_field_last_timestamp' => 10,
         'priority_normal' => 7,
         'priority_high' => 8,
         'priority_asap' => 9,

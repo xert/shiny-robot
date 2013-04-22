@@ -35,7 +35,7 @@ if (isset($opts['dry-run'])) {
 }
 
 $robot = new \ShinyRobot\Robot($api, new \ShinyRobot\Checker(), $config['limit_processed_messages']);
-$robot->sendToRedmine($parser->parse());
+$robot->sendToRedmine($parser);
 
 if (isset($stream)) {
     fclose($stream);

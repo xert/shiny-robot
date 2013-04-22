@@ -3,7 +3,7 @@ namespace ShinyRobot\Log\Parser;
 
 use ShinyRobot\Log\Message;
 
-abstract class AbstractParser
+abstract class AbstractParser implements \Iterator
 {
     /**
      * Cela cesta k logu.
@@ -15,17 +15,19 @@ abstract class AbstractParser
      */
     protected $type = 'unknown';
 
+    private $currentMessage = '';
 
     /**
-     * Nacte zpravy z logu do pole jako retezce.
+     * @var resource File pointer na otevreny log soubor.
      */
-    abstract protected function getMessages();
-
+    private $fp;
 
     /**
      * Dostane pole jednotlivych zprav (jako retezce) a prevede jej na strukturu.
      *
-     * @param array $messages Pole s indexy:
+     * @param string $messageText Text chyby nacteny z log souboru.
+     * @return Message
+     * @xparam array $messages Pole s indexy:
      *  - time
      *  - type (Notice, Exception, 404, ...)
      *  - text (u 404 je to chybejici adresa)
@@ -33,16 +35,24 @@ abstract class AbstractParser
      *  - data (pole ostatnich udaju)
      *  - merge (pokud je TRUE, jsou pole "data" retezena za sebe)
      */
-    abstract protected function parseMessages(array $messages);
-    
+    abstract protected function parseMessage($messageText);
+
+    /**
+     * @param string $line Radek z logu.
+     * @return bool Zda se jedna o radek, kterym zacina chyba v logu.
+     */
+    abstract protected function isStartOfMessage($line);
+
     /**
      * @param string $filePath Cela cesta k logu
+     * @throws \InvalidArgumentException
      */
     public function __construct($filePath)
     {
         if (! is_readable($filePath)) {
             throw new \InvalidArgumentException("Soubor '$filePath' nelze precist");
         }
+        $this->checkXdebug();
         $this->filePath = $filePath;
     }
 
@@ -65,84 +75,17 @@ abstract class AbstractParser
     }
 
     /**
-     * @return Result
+     * Vrati vsechny zpravy z logu v poli.
      */
-    public function parse()
+    public function getMessages()
     {
-        $this->checkXdebug();
-
-        $this->turnLogging(false);
-        $messages = $this->getMessages();
-        $this->turnLogging(true);
-
-        if ( empty($messages) ) {
-            $sorted = array();
-        } else {
-            $parsed = $this->parseMessages($messages);
-            $sorted = $this->sortMessages($parsed);
+        $messages = array();
+        foreach ($this as $message) {
+            $messages[] = $message;
         }
 
-        $result = new Result($this->filePath, $this->type, $sorted);
-
-        return $result;
+        return $messages;
     }
-
-
-    /**
-     * Usporada zpravy tak, aby byly od nejnovejsi po nejstarsi. Pokud se nektera
-     * zprava vyskytuje vicekrat (2 zpravy maji shodny klic), slouci je do jedne.
-     *
-     * @param array $messages
-     * @return array
-     */
-    final private function sortMessages(array $messages)
-    {
-        // seradime podle klicu
-        usort($messages, array($this, 'callbackCompareByKey'));
-        
-        // stejne chyby jsou ted sousede, sloucime stejne
-        // TODO: extrahovat do metody
-        $sorted = array(reset($messages));
-        $lastSortedIndex = 0;
-        $count = count($messages);
-        for ( $i = 1; $i < $count; $i++ ) {
-
-            if ( $sorted[$lastSortedIndex]->getKey() == $messages[$i]->getKey() ) {
-                // stejny klic, sloucime dohromady
-                $sorted[$lastSortedIndex]->addOccurence($messages[$i]->getTime());
-                // pokud existuje klic "merge", data se zretezi
-                if ( $messages[$i]->getMerge() ) {
-                    $data = $sorted[$lastSortedIndex]->getData();
-                    $data[] = $messages[$i]->getData();
-                    $sorted[$lastSortedIndex]->setData($data);
-                }
-            } else {
-                // nova chyba
-                if ( $messages[$i]->getMerge() ) {
-                    // data retezime, musime tedy prevest na pole
-                    $messages[$i]->setData(array($messages[$i]->getData())); 
-                }
-                $sorted[] = $messages[$i];
-                $lastSortedIndex++;
-            }
-        }
-
-
-        // pod index "time" predame cas prvniho vyskytu a pocet vyskytu
-        foreach ( $sorted as $key => $value ) {
-            $occurences = $sorted[$key]->getOccurences();
-            if ( ! empty($occurences) ) {
-                $sorted[$key]->setTime(reset($occurences));
-                $sorted[$key]->setCount(count($occurences));
-            }
-        }
-
-        // seradime podle casu
-        usort($sorted, array($this, 'callbackCompareByTimes'));
-
-        return $sorted;
-    }
-
 
     /**
      * Pokud je aktivni Xdebug, vyhod vyjimku. Logy maji totiz jine formaty.
@@ -156,57 +99,100 @@ abstract class AbstractParser
         }
     }
 
-    
     /**
-     * Vypnuti/zapnuti logovani chyb.
-     * Pri behu analyzatoru se nesmi logovat zadna chyba, protoze pri analyze 
-     * ziveho logu se tak muze vytvorit nekonecna smycka, kdy jsou do souboru 
-     * pridavany dalsi a dalsi chyby.
-     *
-     * @param bool $flag 
+     * @return resource
      */
-    private function turnLogging($flag)
+    protected function getFilePointer()
     {
-        ini_set('log_errors', (bool) $flag);
+        if (! $this->fp) {
+            $this->fp = $this->openFile();
+        }
+
+        return $this->fp;
     }
-
-
-    /**
-     * @see Message::compareByKey
-     * @param Message $a
-     * @param Message $b
-     * @return int
-     */
-    public function callbackCompareByKey(Message $a, Message $b)
-    {
-        return $a->compareByKey($b);
-    }
-
-
-    /**
-     * Seradi zpravy od nejnovejsi po nejstarsi.
-     *
-     * @see Message::compareByTime
-     * @param array $a
-     * @param array $b
-     * @return int
-     */
-    public function callbackCompareByTimes(Message $a, Message $b)
-    {
-        return $a->compareByTime($b);
-    }
-
 
     /**
      * @return resource
      * @throws \RuntimeException Pokud se soubor nepodari otevrit.
      */
-    protected function getFilePointer()
+    private function openFile()
     {
         if ( ! ($fp = fopen($this->filePath, 'r')) ) {
             throw new \RuntimeException("'{$this->filePath}' nelze otevrit.");
         }
 
         return $fp;
+    }
+
+    /**
+     * Return the current element
+     * @link http://php.net/manual/en/iterator.current.php
+     * @return Message
+     */
+    public function current()
+    {
+        $this->currentMessage = '';
+        $messageText = '';
+        $fp = $this->getFilePointer();
+
+        while (! feof($fp)) {
+            $line = fgets($fp, 4096);
+            if ( $this->isStartOfMessage($line) && ! empty($messageText) ) {
+                fseek($fp, -1 * strlen($line), SEEK_CUR);
+                return $this->parseMessage($messageText);
+            }
+            $messageText .= $line;
+        }
+
+        return $this->parseMessage($messageText);
+    }
+
+    /**
+     * Move forward to next element
+     * @link http://php.net/manual/en/iterator.next.php
+     * @return void Any returned value is ignored.
+     */
+    public function next()
+    {
+
+    }
+
+    /**
+     * Return the key of the current element
+     * @link http://php.net/manual/en/iterator.key.php
+     * @return mixed scalar on success, or null on failure.
+     */
+    public function key()
+    {
+        ftell($this->getFilePointer());
+    }
+
+    /**
+     * Checks if current position is valid
+     * @link http://php.net/manual/en/iterator.valid.php
+     * @return boolean The return value will be casted to boolean and then evaluated.
+     * Returns true on success or false on failure.
+     */
+    public function valid()
+    {
+        $fp = $this->getFilePointer();
+        if (feof($fp)) {
+            return false;
+        }
+
+        $char = fgetc($fp);
+        fseek($fp, -1, SEEK_CUR);
+
+        return $char !== false;
+    }
+
+    /**
+     * Rewind the Iterator to the first element
+     * @link http://php.net/manual/en/iterator.rewind.php
+     * @return void Any returned value is ignored.
+     */
+    public function rewind()
+    {
+        rewind($this->getFilePointer());
     }
 }

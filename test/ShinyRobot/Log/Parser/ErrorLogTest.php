@@ -18,9 +18,9 @@ use org\bovigo\vfs\vfsStreamWrapper;
 class ErrorLogTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Result
+     * @var ErrorLog
      */
-    protected $result;
+    private $parser;
 
     /**
      * @var string Soubor s logem (v pameti).
@@ -42,30 +42,19 @@ class ErrorLogTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $parser = AbstractParser::createErrorLogParser(self::$logFilePath);
-        $this->result = $parser->parse();
+        $this->parser = AbstractParser::createErrorLogParser(self::$logFilePath);
     }
 
     public function testCorrectNumberOfMessages()
     {
-        $this->assertEquals(8, count($this->result->getMessages()));
+        $this->assertEquals(10, count($this->parser->getMessages()));
     }
 
     public function testResultContainsErrorObjects()
     {
-        $this->assertGreaterThan(1, count($this->result->getMessages()));
-        foreach ( $this->result->getMessages() as $error ) {
+        $this->assertGreaterThan(1, count($this->parser->getMessages()));
+        foreach ( $this->parser->getMessages() as $error ) {
             $this->assertInstanceOf('ShinyRobot\Log\Message', $error);
-        }
-    }
-
-    public function testCorrectSorting()
-    {
-        $data = $this->result->getMessages();
-
-        $count = count($data);
-        for ( $i = 1; $i < $count; $i++ ) {
-            $this->assertGreaterThanOrEqual($data[$i]->getTimestamp(), $data[$i-1]->getTimestamp());
         }
     }
 
@@ -76,62 +65,60 @@ class ErrorLogTest extends \PHPUnit_Framework_TestCase
     {
         $filePath = realpath(dirname(__FILE__) . '/_files/empty.log');
         $parser = AbstractParser::createErrorLogParser($filePath);
-        $result = $parser->parse();
-        $this->assertEquals(0, $result->count());
+        $this->assertEquals(0, count($parser->getMessages()));
     }
 
     public function testWrongFilenameThrowsException()
     {
         $this->setExpectedException('InvalidArgumentException');
         $filePath = '_nonexistingfilepath_';
-        $parser = AbstractParser::createErrorLogParser($filePath);
-        $parser->parse();
-    }
-
-    public function testCorrectParsingOfJolError()
-    {
-        $messages = $this->result->getMessages();
-        $jolMessage = reset($messages);
-
-        $this->assertEquals(
-            'http://portal.staging.tlumoceni-preklady.cz/servis/clear-titulka-text/token/xxx/',
-            $jolMessage->getUrl()
-        );
-        $this->assertEquals('unknown', $jolMessage->getReferer());
-        $this->assertEquals(
-            "'Zend_View_Exception' with message 'script 'servis/clear-titulka-text.phtml' not found in path (/www/portal/tlumoceni-preklady.cz/modules/default/views/scripts/)' in /www/lib/Zend/View/Abstract.php:924",
-            $jolMessage->getText()
-        );
-        $stackTrace = <<<ST
-#0 /www/lib/Zend/Http/Client.php(261): Zend_Uri::factory('servis/clear-ti...')
-#1 /www/lib/Zend/Http/Client.php(244): Zend_Http_Client->setUri('servis/clear-ti...')
-#2 /www/webkurzor/modules/firma/controllers/ObrazekController.php(868): Zend_Http_Client->__construct('servis/clear-ti...')
-#3 /www/webkurzor/modules/firma/controllers/ObrazekController.php(246): Firma_ObrazekController->clearCachedTitulkaText()
-#4 /www/lib/Zend/Controller/Action.php(513): Firma_ObrazekController->titulkaTextAction()
-#5 /www/lib/Zend/Controller/Dispatcher/Standard.php(289): Zend_Controller_Action->dispatch('titulkaTextActi...')
-#6 /www/lib/Zend/Controller/Front.php(946): Zend_Controller_Dispatcher_Standard->dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
-#7 /www/lib/j3/App.php(157): Zend_Controller_Front->dispatch()
-#8 /www/webkurzor/htdocs/index.php(5): j3_App->run()
-#9 {main}
-ST;
-        $stackTrace = $this->normalizeLineSeparators($stackTrace);
-        $this->assertEquals($stackTrace, $jolMessage->getStackTrace());
+        AbstractParser::createErrorLogParser($filePath);
     }
 
     public function testCorrectParsingOfTpError()
     {
-        $messages = $this->result->getMessages();
-        /** @var $tpMessage Message */
-        $tpMessage = $messages[6];
+        $message = $this->parser->current();
+
+        $this->assertEquals(
+            'http://portal.staging.tlumoceni-preklady.cz/servis/clear-titulka-text/token/xxx/',
+            $message->getUrl()
+        );
+        $this->assertEquals('unknown', $message->getReferer());
+        $this->assertEquals(
+            "'Zend_View_Exception' with message 'script 'servis/clear-titulka-text.phtml' not found in path (/www/portal/tlumoceni-preklady.cz/modules/default/views/scripts/)' in /www/lib/Zend/View/Abstract.php:924",
+            $message->getText()
+        );
+        $stackTrace = <<<ST
+#0 /www/lib/Zend/View/Abstract.php(827): Zend_View_Abstract->_script('servis/clear-ti...')
+#1 /www/lib/Zend/Controller/Action/Helper/ViewRenderer.php(903): Zend_View_Abstract->render('servis/clear-ti...')
+#2 /www/lib/Zend/Controller/Action/Helper/ViewRenderer.php(924): Zend_Controller_Action_Helper_ViewRenderer->renderScript('servis/clear-ti...', NULL)
+#3 /www/lib/Zend/Controller/Action/Helper/ViewRenderer.php(963): Zend_Controller_Action_Helper_ViewRenderer->render()
+#4 /www/lib/Zend/Controller/Action/HelperBroker.php(277): Zend_Controller_Action_Helper_ViewRenderer->postDispatch()
+#5 /www/lib/Zend/Controller/Action.php(523): Zend_Controller_Action_HelperBroker->notifyPostDispatch()
+#6 /www/lib/Zend/Controller/Dispatcher/Standard.php(289): Zend_Controller_Action->dispatch('clearTitulkaTex...')
+#7 /www/lib/Zend/Controller/Front.php(946): Zend_Controller_Dispatcher_Standard->dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#8 /www/lib/j3/App.php(157): Zend_Controller_Front->dispatch()
+#9 /www/portal/tlumoceni-preklady.cz/htdocs/index.php(11): j3_App->run()
+#10 {main}
+ST;
+        $stackTrace = $this->normalizeLineSeparators($stackTrace);
+        $this->assertEquals($stackTrace, $message->getStackTrace());
+    }
+
+    public function testCorrectParsingOfJolError()
+    {
+        $messages = $this->parser->getMessages();
+        /** @var $message Message */
+        $message = $messages[8];
 
         $this->assertEquals(
             'http://www.francouzstina-on-line.cz/jazykove-zkousky/',
-            $tpMessage->getUrl()
+            $message->getUrl()
         );
-        $this->assertEquals('unknown', $tpMessage->getReferer());
+        $this->assertEquals('unknown', $message->getReferer());
         $this->assertEquals(
             "'PDOException' with message 'SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 61' in /data/www/production/gdi/lib/Zend/Db/Adapter/Pdo/Abstract.php:129",
-            $tpMessage->getText()
+            $message->getText()
         );
 
         $stackTrace = <<<ST
@@ -166,7 +153,7 @@ Stack trace:
 ST;
 
         $stackTrace = $this->normalizeLineSeparators($stackTrace);
-        $this->assertEquals($stackTrace, $tpMessage->getStackTrace());
+        $this->assertEquals($stackTrace, $message->getStackTrace());
     }
     
     public function testWindowsLineEnd()
@@ -176,8 +163,8 @@ ST;
 
         //drive tento test spadnul, kvuli nejednoznacnosti konce radku (pokud byl soubor ukoncovan UNIX like, a obsahoval
         //byt jediny WIN line ending, vyhodnotilo se to tak, ze cely soubor ma WIN line ending
-        $messages = $this->result->getMessages();
-        $message  = $messages[7]; //zprava je rozdelena znakem CRLF
+        $messages = $this->parser->getMessages();
+        $message  = end($messages); //zprava je rozdelena znakem CRLF
         $text = "'Zend_Mail_Protocol_Exception' with message '4.1.8 <rgxucr@noqbtz.com>: Sender address rejected: Domain not found  ' in /data/www/production/gdi/lib/Zend/Mail/Protocol/Abstract.php:431";
         $this->assertEquals($text, $message->getText());
 

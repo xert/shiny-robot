@@ -21,16 +21,6 @@ class Message
     private $timestamp;
 
     /**
-     * @var array Casy vyskytu stejne zpravy.
-     */
-    private $times = array();
-
-    /**
-     * @var bool Pokud je TRUE, jsou pole "data" retezena za sebe.
-     */
-    private $merge = false;
-
-    /**
      * @var array Dalsi data, ktera mohou byt ke zprave pripojena.
      */
     private $data = array();
@@ -46,11 +36,6 @@ class Message
      */
     public function __construct(array $message)
     {
-        if (isset($message['timeFormat'])) {
-            $this->setTimeFormat($message['timeFormat']);
-            unset($message['timeFormat']);
-        }
-
         foreach ( $message as $key => $value ) {
             $methodName = 'set' . ucfirst(strtolower($key));
             if (method_exists($this, $methodName) ) {
@@ -63,52 +48,18 @@ class Message
         }
     }
 
-
-    /**
-     * @param Message $message
-     * @return int
-     *   0 pokud jsou klice stejne
-     *  -1 pokud je klic $message vetsi, nez vlastni klic
-     *   1 pokud je klic $message mensi, nez vlastni klic
-     */
-    public function compareByKey(Message $message)
-    {
-        return strncasecmp($this->getKey(), $message->getKey(), 32);
-    }
-
-
-    /**
-     * Zpravy jsou razeny od nejmladsi po nejstarsi.
-     *
-     * @param Message $message
-     * @return int
-     *   0 pokud jsou casy stejne
-     *  -1 pokud je cas $message vetsi, nez mistni
-     *   1 pokud je cas $message mensi, nez mistni
-     */
-    public function compareByTime(Message $message)
-    {
-        if ( $this->getTimestamp() == $message->getTimestamp() ) {
-            return 0;
-        }
-
-        return ($this->getTimestamp() < $message->getTimestamp()) ? 1 : -1;
-    }
-
-
     /**
      * @param string $time
+     * @return $this
      */
     public function setTime($time)
     {
         $this->time = $time;
         $datetime = \DateTime::createFromFormat($this->timeFormat, $time);
         $this->timestamp = $datetime ? $datetime->getTimestamp() : time();
-        if ( empty($this->times) ) {
-            $this->addOccurence($time);
-        }
-    }
 
+        return $this;
+    }
 
     /**
      * Redmine pri pokusu o ziskani issue pres REST API podle custom field,
@@ -124,13 +75,6 @@ class Message
         }
 
         $this->key = $key;
-    }
-
-    /**
-     * @param int $count
-     */
-    public function setCount($count) {
-        $this->count = $count;
     }
 
     /**
@@ -183,82 +127,14 @@ class Message
     }
 
     /**
-     * @return array
-     */
-    public function getData() {
-        return $this->data;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getMerge() {
-        return $this->merge;
-    }
-
-    /**
      * @return string
      */
     public function getStackTrace() {
         return $this->stackTrace;
     }
 
-    /**
-     * @return int
-     */
-    public function getCount() {
-        return $this->count;
-    }
-
-    /**
-     * @param array $data
-     */
-    public function setData($data) {
-        $this->data = $data;
-    }
-
-    /**
-     * Prida cas vyskytu zpravy (chyby).
-     * 
-     * @param string $time
-     */
-    public function addOccurence($time)
-    {
-        $this->times[] = $time;
-        sort($this->times);
-    }
-
-
-    /**
-     * @return array
-     */
-    public function getTimes()
-    {
-        return $this->times;
-    }
-
-
-    /**
-     * @return array
-     */
-    public function getOccurences()
-    {
-        return $this->getTimes();
-    }
-
     public function getTimestamp()
     {
         return $this->timestamp;
-    }
-
-    /**
-     * @param string $timeFormat
-     * @return Message
-     */
-    public function setTimeFormat($timeFormat)
-    {
-        $this->timeFormat = $timeFormat;
-
-        return $this;
     }
 }

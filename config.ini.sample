@@ -18,6 +18,7 @@ tracker = 10
 ; id custom poli v Redmine
 custom_field_count = 38
 custom_field_key = 37
+custom_field_last_timestamp = 41
 
 ; id statusu v Redmine
 state_new = 1

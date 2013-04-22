@@ -20,28 +20,26 @@ namespace ShinyRobot\Log\Parser;
  */
 class GdiErrorLogTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var Result
+/**
+     * @var ErrorLog
      */
-    protected $result;
+    private $parser;
 
     protected function setUp()
     {
         $filePath = realpath(dirname(__FILE__) . '/_files/gdierror.log');
-        $parser = AbstractParser::createGdiErrorLogParser($filePath);
-        $this->result = $parser->parse();
+        $this->parser = AbstractParser::createGdiErrorLogParser($filePath);
     }
 
     public function testCorrectNumberOfMessages()
     {
-        $this->assertEquals(14, count($this->result->getMessages()));
+        $this->assertEquals(18, count($this->parser->getMessages()));
     }
 
     public function testEmptyLogfile()
     {
         $filePath = realpath(dirname(__FILE__) . '/_files/empty.log');
         $parser = AbstractParser::createGdiErrorLogParser($filePath);
-        $result = $parser->parse();
-        $this->assertEquals(0, $result->count());
+        $this->assertEquals(0, count($parser->getMessages()));
     }
 }

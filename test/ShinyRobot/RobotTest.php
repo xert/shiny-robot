@@ -2,6 +2,7 @@
 namespace ShinyRobot;
 
 use ShinyRobot\Log\Message;
+use ShinyRobot\Log\Parser\AbstractParser;
 
 class RobotTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,17 +11,15 @@ class RobotTest extends \PHPUnit_Framework_TestCase
      */
     private $robot;
 
-    private $messages = array();
-
     /**
      * @var \Phake_IMock
      */
     private $checker;
 
     /**
-     * @var \Phake_IMock
+     * @var TestParser
      */
-    private $logResult;
+    private $parser;
 
     /**
      * @var \Phake_IMock
@@ -29,23 +28,21 @@ class RobotTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->logResult = \Phake::mock('ShinyRobot\Log\Parser\Result');
-        $that = $this;
-        \Phake::when($this->logResult)->getMessages()->thenGetReturnByLambda(function() use($that) { return $that->messages; });
-
         $this->checker = \Phake::mock('ShinyRobot\Checker');
         \Phake::when($this->checker)->check(\Phake::anyParameters())->thenReturn(true);
 
         $this->api = \Phake::mock('ShinyRobot\Api');
 
         $this->robot = new Robot($this->api, $this->checker, 1);
+
+        $this->parser = new TestParser('file_path');
     }
 
     public function testNoErrorsSentIfCheckerRejectsThem()
     {
         \Phake::when($this->checker)->check(\Phake::anyParameters())->thenReturn(false);
-        $this->messages[] = new Message(array());
-        $this->robot->sendToRedmine($this->logResult);
+        $this->parser->messages[] = new Message(array());
+        $this->robot->sendToRedmine($this->parser);
         \Phake::verify($this->checker, \Phake::times(1))->check(\Phake::anyParameters());
         \Phake::verify($this->api, \Phake::times(0))->save(\Phake::anyParameters());
     }
@@ -53,18 +50,31 @@ class RobotTest extends \PHPUnit_Framework_TestCase
     public function testUpdateExistingIssue()
     {
         $key = 'abckey';
-        $this->messages[] = new Message(array('key' => $key, 'count' => 2));
+        $this->parser->messages[] = new Message(array('key' => $key, 'timestamp' => 200));
 
-        $issue = new Issue($this->api, array('id' => 1));
+        $issue = new Issue($this->api, array(
+            'id'            => 1,
+            'custom_fields' => array(
+                array(
+                    'id'    => 1, // count
+                    'value' => 3
+                ),
+                array(
+                    'id'    => 2, // last timestamp
+                    'value' => 100
+                )
+            )
+        ));
         \Phake::when($this->api)->findByKey($key)->thenReturn($issue);
         \Phake::when($this->api)->getStateNew()->thenReturn(1);
         \Phake::when($this->api)->getCustomFieldCount()->thenReturn(1);
+        \Phake::when($this->api)->getCustomFieldLastTimestamp()->thenReturn(2);
 
-        $this->robot->sendToRedmine($this->logResult);
+        $this->robot->sendToRedmine($this->parser);
 
         $data = $issue->toArray();
         $this->assertEquals(1, $data['status_id']); // issue je znovu otevrena
-        $this->assertCustomFieldValue($issue, 1, 2);
+        $this->assertCustomFieldValue($issue, 1, 4); // count
 
         \Phake::verify($this->api)->save($issue);
     }
@@ -72,15 +82,17 @@ class RobotTest extends \PHPUnit_Framework_TestCase
     public function testCreateNewIssue()
     {
         $key = 'abckey';
-        $this->messages[] = new Message(array('key' => $key));
+        $this->parser->messages[] = new Message(array('key' => $key));
 
         $issue = new Issue($this->api);
         \Phake::when($this->api)->getCustomFieldKey()->thenReturn(1);
+        \Phake::when($this->api)->getCustomFieldCount()->thenReturn(2);
         \Phake::when($this->api)->createIssue()->thenReturn($issue);
 
-        $this->robot->sendToRedmine($this->logResult);
+        $this->robot->sendToRedmine($this->parser);
 
         $this->assertCustomFieldValue($issue, 1, $key);
+        $this->assertCustomFieldValue($issue, 2, 1); // count
         \Phake::verify($this->api)->save($issue);
     }
 
@@ -103,13 +115,63 @@ class RobotTest extends \PHPUnit_Framework_TestCase
 
     public function testProcessOnlyLimitedAmountOfMessages()
     {
-        $this->messages = array(
+        $this->parser->messages = array(
             new Message(array()),
             new Message(array()),
         );
         \Phake::when($this->api)->createIssue()->thenReturn(new Issue($this->api));
-        $this->robot->sendToRedmine($this->logResult);
+        $this->robot->sendToRedmine($this->parser);
 
         \Phake::verify($this->api, \Phake::times(1))->save(\Phake::anyParameters());
+        // overime, ze se nenacetly vsechny zpravy, ale iteruje se postupne
+        $this->assertEquals(0, $this->parser->position);
+    }
+}
+
+class TestParser extends AbstractParser
+{
+    public $messages = array();
+
+    public $position = 0;
+
+    public function __construct($filePath)
+    {
+    }
+
+    protected function parseMessage($messageText)
+    {
+    }
+
+    function rewind() {
+        $this->position = 0;
+    }
+
+    function current()
+    {
+        return $this->messages[$this->position];
+    }
+
+    function key()
+    {
+        return $this->position;
+    }
+
+    function next()
+    {
+        ++$this->position;
+    }
+
+    function valid()
+    {
+        return isset($this->messages[$this->position]);
+    }
+
+    /**
+     * @param string $line Radek z logu.
+     * @return bool Zda se jedna o radek, kterym zacina chyba v logu.
+     */
+    protected function isStartOfMessage($line)
+    {
+        return true;
     }
 }

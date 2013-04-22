@@ -58,7 +58,33 @@ class Issue
 
     public function getCount()
     {
+        $id = $this->api->getCustomFieldCount();
 
+        return $this->getCustomFieldValue($id);
+    }
+
+    public function getLastTimestamp()
+    {
+        $id = $this->api->getCustomFieldLastTimestamp();
+
+        return $this->getCustomFieldValue($id);
+    }
+
+    /**
+     * @param int $fieldId
+     * @return int
+     */
+    private function getCustomFieldValue($fieldId)
+    {
+        if (isset($this->origData['custom_fields'])) {
+            foreach ($this->origData['custom_fields'] as $field) {
+                if ($field['id'] == $fieldId) {
+                    return isset($field['value']) ? $field['value'] : 0;
+                }
+            }
+        }
+
+        return 0;
     }
 
     public function setCount($count)
@@ -106,6 +132,11 @@ class Issue
     public function setKey($key)
     {
         return $this->setCustomField($this->api->getCustomFieldKey(), $key);
+    }
+
+    public function setLastTimestamp($lastTimestamp)
+    {
+        return $this->setCustomField($this->api->getCustomFieldLastTimestamp(), $lastTimestamp);
     }
 
     private function setPriority($priorityId)

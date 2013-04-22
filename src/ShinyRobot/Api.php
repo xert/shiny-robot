@@ -25,6 +25,7 @@ class Api
      */
     private $customFieldCount = 38;
     private $customFieldKey = 37;
+    private $customFieldLastTimestamp = 41;
 
     /**
      * Id statusu v Redminu.
@@ -63,6 +64,7 @@ class Api
         $this->stateClosed = (int) $config['state_closed'];
         $this->customFieldCount = (int) $config['custom_field_count'];
         $this->customFieldKey = (int) $config['custom_field_key'];
+        $this->customFieldLastTimestamp = (int) $config['custom_field_last_timestamp'];
         $this->priorityNormal = (int) $config['priority_normal'];
         $this->priorityHigh = (int) $config['priority_high'];
         $this->priorityAsap = (int) $config['priority_asap'];
@@ -136,6 +138,11 @@ class Api
     public function getPriorityNormal()
     {
         return $this->priorityNormal;
+    }
+
+    public function getCustomFieldLastTimestamp()
+    {
+        return $this->customFieldLastTimestamp;
     }
 
     public function save(Issue $issue)

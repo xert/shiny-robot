@@ -2,12 +2,12 @@
 namespace ShinyRobot;
 use Redmine\Client;
 use ShinyRobot\Log\Message;
-use ShinyRobot\Log\Parser\Result;
+use ShinyRobot\Log\Parser\AbstractParser;
 
 class Robot
 {
     /**
-     * @var int Kolik maximalne zprav bude zpracovano v jednom behu. Zabrani zasilani tisicu zprav se stejnou chybou.
+     * @var int Kolik maximalne zprav bude zaslano do Redmine v jednom behu. Zabrani zasilani tisicu zprav se stejnou chybou.
      */
     private $limitMessages;
 
@@ -33,12 +33,12 @@ class Robot
         $this->limitMessages = $limitMessages;
     }
 
-    public function sendToRedmine(Result $logResult)
+    public function sendToRedmine(AbstractParser $parser)
     {
         $processedMessages = 0;
-        foreach ( $logResult->getMessages() as $error ) {
+        foreach ($parser as $error) {
 
-            if ( $this->checker->check($error) ) {
+            if ($this->checker->check($error)) {
                 if ($this->processError($error)) {
                     if (++$processedMessages >= $this->limitMessages) {
                         return true;
@@ -59,24 +59,26 @@ class Robot
         $issue = $this->api->findByKey($error->getKey());
 
         if ( $issue ) {
-            // chyba uz je v Redminu
+            // chyba uz je v Redmine
 
-            if ( $issue->isClosed() ) {
-                $issue->open();
+            if ($error->getTimestamp() > $issue->getLastTimestamp()) {
+                // chyba se vyskytla znovu a novy vyskyt jeste nebyl zalogovan v Redmine
+
+                $issue->setLastTimestamp($error->getTimestamp());
+                $issue->setCount($issue->getCount() + 1);
+                if ( $issue->isClosed() ) {
+                    $issue->open();
+                }
+
                 $save = true;
             }
 
-            if ( $error->getCount() > $issue->getCount() ) {
-                // zvedneme pocet vyskytu
-                $issue->setCount($error->getCount());
-                $save = true;
-            }
         } else {
             // chyba zatim neni v Redminu
 
             $issue = $this->api->createIssue()
                 ->setSubject($error->getText())
-                ->setCount($error->getCount())
+                ->setCount(1)
                 ->setKey($error->getKey())
                 ->setPriorityByString($error->getType())
                 ->setDescription($error);

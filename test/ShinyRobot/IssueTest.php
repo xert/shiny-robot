@@ -32,7 +32,7 @@ class IssueTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(255, strlen($data['subject']));
     }
 
-    public function testSetCount()
+    public function testIncCount()
     {
         $issue = new Issue($this->api);
         $id = 42;
@@ -154,5 +154,28 @@ EXP;
         $issue->open();
         $data = $issue->toArray();
         $this->assertEquals(1, $data['status_id']);
+    }
+
+    public function testGetCustomField()
+    {
+        $countId = 42;
+        $count = 100;
+        $lastTimestampId = 20;
+        \Phake::when($this->api)->getCustomFieldCount()->thenReturn($countId);
+        \Phake::when($this->api)->getCustomFieldLastTimestamp()->thenReturn($lastTimestampId);
+        $data = array(
+            'custom_fields' => array(
+                array(
+                    'id'    => $countId,
+                    'value' => $count
+                ),
+                array(
+                    'id'    => $lastTimestampId,
+                )
+            )
+        );
+        $issue = new Issue($this->api, $data);
+        $this->assertEquals($count, $issue->getCount());
+        $this->assertEquals(0, $issue->getLastTimestamp());
     }
 }
