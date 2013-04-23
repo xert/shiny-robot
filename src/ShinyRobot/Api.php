@@ -72,6 +72,7 @@ class Api
 
     /**
      * @param string $key
+     * @throws \RuntimeException
      * @return null|Issue
      */
     public function findByKey($key)
@@ -84,6 +85,10 @@ class Api
             $cfKey       => $key,
             'status_id'  => '*', // vsechny stavy
         ));
+
+        if ($issues === null) {
+            throw new \RuntimeException("Z Redmine se nepodarilo nacist udaje o issue s klicem '$key'");
+        }
 
         if (empty($issues['issues'])) {
             return null;

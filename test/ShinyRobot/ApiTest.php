@@ -62,6 +62,15 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('*', $data['status_id']);
     }
 
+    public function testFindByKeyThrowsExceptionIfEmptyResult()
+    {
+        $this->setExpectedException('RuntimeException');
+        $issues = \Phake::mock('Redmine\Api\Issue');
+        \Phake::when($this->client)->api('issue')->thenReturn($issues);
+        \Phake::when($issues)->all(\Phake::anyParameters())->thenReturn(null);
+        $this->api->findByKey('key');
+    }
+
     public function testSaveCreate()
     {
         $issue = new Issue($this->api);
