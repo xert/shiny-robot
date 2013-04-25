@@ -150,25 +150,46 @@ class Api
         return $this->customFieldLastTimestamp;
     }
 
+    /**
+     * @param Issue $issue
+     */
     public function save(Issue $issue)
     {
-        $api = $this->client->api('issue');
+        $issue->hasId() ? $this->update($issue) : $this->insert($issue);
+    }
 
-        if ($issue->hasId()) {
-            if ($this->dryRun) {
-                fwrite($this->outputStream, "Aktualizuji issue s id {$issue->getId()}\n");
-            } else {
-                $api->update($issue->getId(), $issue->toArray());
-            }
+    /**
+     * @param Issue $issue
+     */
+    private function insert(Issue $issue)
+    {
+        if ($this->dryRun) {
+            $data = $issue->toArray();
+            $subject = $data['subject'];
+            fwrite($this->outputStream, "Vytvarim novou issue s predmetem: $subject\n");
         } else {
-            if ($this->dryRun) {
-                $data = $issue->toArray();
-                $subject = $data['subject'];
-                fwrite($this->outputStream, "Vytvarim novou issue s predmetem: $subject\n");
-            } else {
-                $api->create($issue->toArray());
-            }
+            $this->getApi()->create($issue->toArray());
         }
+    }
+
+    /**
+     * @param Issue $issue
+     */
+    private function update(Issue $issue)
+    {
+        if ($this->dryRun) {
+            fwrite($this->outputStream, "Aktualizuji issue s id {$issue->getId()}\n");
+        } else {
+            $this->getApi()->update($issue->getId(), $issue->toArray());
+        }
+    }
+
+    /**
+     * @return \Redmine\Api\AbstractApi
+     */
+    private function getApi()
+    {
+        return $this->client->api('issue');
     }
 
     /**

@@ -26,10 +26,11 @@ class IssueTest extends \PHPUnit_Framework_TestCase
     public function testSetSubject()
     {
         $issue = new Issue($this->api);
-        $subject = str_repeat('s', 300);
+        $subject = 's & s' . str_repeat('s', 300);
         $issue->setSubject($subject);
         $data = $issue->toArray();
         $this->assertEquals(255, strlen($data['subject']));
+        $this->assertContains('&amp;', $data['subject']);
     }
 
     public function testIncCount()
@@ -109,7 +110,7 @@ class IssueTest extends \PHPUnit_Framework_TestCase
         $issue = new Issue($this->api);
         $message = new Message(array(
             'time' => '12:57:01',
-            'text' => 'text',
+            'text' => 'text & text',
             'url' => 'http://www.google.com',
             'referer' => 'referer',
             'ip' => '127.0.0.1',
@@ -118,7 +119,7 @@ class IssueTest extends \PHPUnit_Framework_TestCase
 
         $expected = <<<EXP
 * Time: 12:57:01
-* Text: text
+* Text: text &amp; text
 * Url: http://www.google.com
 * Referer: referer
 * IP: 127.0.0.1
