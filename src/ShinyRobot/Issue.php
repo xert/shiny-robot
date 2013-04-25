@@ -125,6 +125,7 @@ class Issue
      */
     public function setSubject($subject)
     {
+        $subject = htmlentities($subject, ENT_QUOTES);
         $this->data['subject'] = substr($subject, 0, 255);
         return $this;
     }
