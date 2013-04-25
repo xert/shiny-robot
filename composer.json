@@ -1,0 +1,20 @@
+{
+    "name": "xert/shiny-robot",
+    "description": "Push errors from log files to Redmine as issues.",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "gdi, s.r.o.",
+            "email": "developers@gdi.cz"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "3.7.19",
+        "mikey179/vfsStream": "v1.2.0",
+        "phing/phing": "2.5.0",
+        "phake/phake": "v1.0.3"
+    },
+    "require": {
+        "kbsali/redmine-api": "0.4.6"
+    }
+}

@@ -1,0 +1,14 @@
+<phpunit bootstrap="./TestHelper.php"
+         colors="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnFailure="false">
+             
+    <testsuites>
+        <testsuite name="All">
+            <directory>./ShinyRobot/</directory>
+        </testsuite>
+    </testsuites>
+
+</phpunit>

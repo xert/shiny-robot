@@ -1,0 +1,213 @@
+[17-Aug-2010 13:57:24] PHP Notice: Undefined variable: x in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:29
+Stack trace:
+#0  j3_Error_Logger->getBacktrace() called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Logger.php:71]
+#1  j3_Error_Logger->logError(8, Undefined variable: x, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 29) called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:78]
+#2  j3_Error_Handler->errorHandler(8, Undefined variable: x, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 29, Array ()) called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:29]
+#3  IndexController->indexAction() called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Action.php:513]
+#4  Zend_Controller_Action->dispatch(indexAction) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:295]
+#5  Zend_Controller_Dispatcher_Standard->dispatch(Zend_Controller_Request_Http Object ([] => Array ([0] => _GET,[1] => _POST),[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/,[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs,[] => ,[] => /,[] => Array ([module] => default,[controller] => index,[action] => index),[] => ,[] => Array (),[] => 1,[] => default,[] => module,[] => index,[] => controller,[] => index,[] => action), Zend_Controller_Response_Http Object ([] => Array (),[] => Array (),[] => Array (),[] => Array (),[] => 200,[] => ,[] => ,[headersSentThrowsException] => 1)) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php:954]
+#6  Zend_Controller_Front->dispatch() called at [D:\www\tlumoceni-preklady.cz\lib\j3\App.php:182]
+#7  j3_App->run() called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\htdocs\index.php:11]
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 13:57:51] PHP Warning: Invalid argument supplied for foreach() in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:30
+Stack trace:
+#0  j3_Error_Logger->getBacktrace() called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Logger.php:71]
+#1  j3_Error_Logger->logError(2, Invalid argument supplied for foreach(), D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 30) called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:78]
+#2  j3_Error_Handler->errorHandler(2, Invalid argument supplied for foreach(), D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 30, Array ()) called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:30]
+#3  IndexController->indexAction() called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Action.php:513]
+#4  Zend_Controller_Action->dispatch(indexAction) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:295]
+#5  Zend_Controller_Dispatcher_Standard->dispatch(Zend_Controller_Request_Http Object ([] => Array ([0] => _GET,[1] => _POST),[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/,[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs,[] => ,[] => /,[] => Array ([module] => default,[controller] => index,[action] => index),[] => ,[] => Array (),[] => 1,[] => default,[] => module,[] => index,[] => controller,[] => index,[] => action), Zend_Controller_Response_Http Object ([] => Array (),[] => Array (),[] => Array (),[] => Array (),[] => 200,[] => ,[] => ,[headersSentThrowsException] => 1)) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php:954]
+#6  Zend_Controller_Front->dispatch() called at [D:\www\tlumoceni-preklady.cz\lib\j3\App.php:182]
+#7  j3_App->run() called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\htdocs\index.php:11]
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 13:58:10] PHP Warning: Invalid argument supplied for foreach() in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:30	
+Stack trace:
+#0  j3_Error_Logger->getBacktrace() called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Logger.php:71]
+#1  j3_Error_Logger->logError(2, Invalid argument supplied for foreach(), D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 30) called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:78]
+#2  j3_Error_Handler->errorHandler(2, Invalid argument supplied for foreach(), D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 30, Array ()) called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:30]
+#3  IndexController->indexAction() called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Action.php:513]
+#4  Zend_Controller_Action->dispatch(indexAction) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:295]
+#5  Zend_Controller_Dispatcher_Standard->dispatch(Zend_Controller_Request_Http Object ([] => Array ([0] => _GET,[1] => _POST),[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/,[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs,[] => ,[] => /,[] => Array ([module] => default,[controller] => index,[action] => index),[] => ,[] => Array (),[] => 1,[] => default,[] => module,[] => index,[] => controller,[] => index,[] => action), Zend_Controller_Response_Http Object ([] => Array (),[] => Array (),[] => Array (),[] => Array (),[] => 200,[] => ,[] => ,[headersSentThrowsException] => 1)) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php:954]
+#6  Zend_Controller_Front->dispatch() called at [D:\www\tlumoceni-preklady.cz\lib\j3\App.php:182]
+#7  j3_App->run() called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\htdocs\index.php:11]
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 13:58:11] PHP Warning: Invalid argument supplied for foreach() in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:30
+Stack trace:
+#0  j3_Error_Logger->getBacktrace() called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Logger.php:71]
+#1  j3_Error_Logger->logError(2, Invalid argument supplied for foreach(), D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 30) called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:78]
+#2  j3_Error_Handler->errorHandler(2, Invalid argument supplied for foreach(), D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 30, Array ()) called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:30]
+#3  IndexController->indexAction() called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Action.php:513]
+#4  Zend_Controller_Action->dispatch(indexAction) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:295]
+#5  Zend_Controller_Dispatcher_Standard->dispatch(Zend_Controller_Request_Http Object ([] => Array ([0] => _GET,[1] => _POST),[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/,[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs,[] => ,[] => /,[] => Array ([module] => default,[controller] => index,[action] => index),[] => ,[] => Array (),[] => 1,[] => default,[] => module,[] => index,[] => controller,[] => index,[] => action), Zend_Controller_Response_Http Object ([] => Array (),[] => Array (),[] => Array (),[] => Array (),[] => 200,[] => ,[] => ,[headersSentThrowsException] => 1)) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php:954]
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/xxx	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 13:58:57] PHP Warning: Invalid argument supplied for foreach() in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:22	
+Stack trace:
+#0  j3_Error_Logger->getBacktrace() called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Logger.php:71]
+#1  j3_Error_Logger->logError(2, Invalid argument supplied for foreach(), D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 22) called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:78]
+#2  j3_Error_Handler->errorHandler(2, Invalid argument supplied for foreach(), D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 22, Array ()) called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:22]
+#3  IndexController->indexAction() called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Action.php:513]
+#4  Zend_Controller_Action->dispatch(indexAction) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:295]
+#5  Zend_Controller_Dispatcher_Standard->dispatch(Zend_Controller_Request_Http Object ([] => Array ([0] => _GET,[1] => _POST),[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/,[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs,[] => ,[] => /,[] => Array ([module] => default,[controller] => index,[action] => index),[] => ,[] => Array (),[] => 1,[] => default,[] => module,[] => index,[] => controller,[] => index,[] => action), Zend_Controller_Response_Http Object ([] => Array (),[] => Array (),[] => Array (),[] => Array (),[] => 200,[] => ,[] => ,[headersSentThrowsException] => 1)) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php:954]
+#6  Zend_Controller_Front->dispatch() called at [D:\www\tlumoceni-preklady.cz\lib\j3\App.php:182]
+#7  j3_App->run() called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\htdocs\index.php:11]
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 13:59:43] PHP Exception: exception 'Exception' with message 'xxx' in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:37
+Stack trace:
+#0 D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Action.php(513): IndexController->indexAction()
+#1 D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php(295): Zend_Controller_Action->dispatch('indexAction')
+#2 D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php(954): Zend_Controller_Dispatcher_Standard->dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#3 D:\www\tlumoceni-preklady.cz\lib\j3\App.php(182): Zend_Controller_Front->dispatch()
+#4 D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\htdocs\index.php(11): j3_App->run()
+#5 {main}
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 13:59:46] PHP Exception: exception 'Exception' with message 'xxx' in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:37
+Stack trace:
+#0 D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Action.php(513): IndexController->indexAction()
+#1 D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php(295): Zend_Controller_Action->dispatch('indexAction')
+#2 D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php(954): Zend_Controller_Dispatcher_Standard->dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#3 D:\www\tlumoceni-preklady.cz\lib\j3\App.php(182): Zend_Controller_Front->dispatch()
+#4 D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\htdocs\index.php(11): j3_App->run()
+#5 {main}
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 14:00:27] PHP Exception: exception 'InvalidArgumentException' with message 'previous' in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:39
+Stack trace:
+#0 D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Action.php(513): IndexController->indexAction()
+#1 D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php(295): Zend_Controller_Action->dispatch('indexAction')
+#2 D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php(954): Zend_Controller_Dispatcher_Standard->dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#3 D:\www\tlumoceni-preklady.cz\lib\j3\App.php(182): Zend_Controller_Front->dispatch()
+#4 D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\htdocs\index.php(11): j3_App->run()
+#5 {main}
+
+Next exception 'RuntimeException' with message 'next' in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:39
+Stack trace:
+#0 D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Action.php(513): IndexController->indexAction()
+#1 D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php(295): Zend_Controller_Action->dispatch('indexAction')
+#2 D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php(954): Zend_Controller_Dispatcher_Standard->dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#3 D:\www\tlumoceni-preklady.cz\lib\j3\App.php(182): Zend_Controller_Front->dispatch()
+#4 D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\htdocs\index.php(11): j3_App->run()
+#5 {main}
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 14:00:58] PHP Parse error: parse error in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:55	
+Stack trace:
+#0  j3_Error_Logger->getBacktrace() called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Logger.php:71]
+#1  j3_Error_Logger->logError(4, parse error, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 55) called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:101]
+#2  j3_Error_Handler->shutdownHandler()
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 14:01:17] PHP Fatal error: Allowed memory size of 10240000 bytes exhausted (tried to allocate 6144 bytes) in D:\www\tlumoceni-preklady.cz\lib\Zend\View\Helper\HeadLink.php:71	
+Stack trace:
+#0  j3_Error_Logger->getBacktrace() called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Logger.php:71]
+#1  j3_Error_Logger->logError(1, Allowed memory size of 10240000 bytes exhausted (tried to allocate 6144 bytes), D:\www\tlumoceni-preklady.cz\lib\Zend\View\Helper\HeadLink.php, 71) called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:101]
+#2  j3_Error_Handler->shutdownHandler()
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 14:01:44] PHP Fatal error: mmm in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:29	
+Stack trace:
+#0  j3_Error_Logger->getBacktrace() called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Logger.php:71]
+#1  j3_Error_Logger->logError(256, mmm, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 29) called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:78]
+#2  j3_Error_Handler->errorHandler(256, mmm, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 29, Array ())
+#3  trigger_error(mmm, 256) called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:29]
+#4  IndexController->indexAction() called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Action.php:513]
+#5  Zend_Controller_Action->dispatch(indexAction) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:295]
+#6  Zend_Controller_Dispatcher_Standard->dispatch(Zend_Controller_Request_Http Object ([] => Array ([0] => _GET,[1] => _POST),[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/,[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs,[] => ,[] => /,[] => Array ([module] => default,[controller] => index,[action] => index),[] => ,[] => Array (),[] => 1,[] => default,[] => module,[] => index,[] => controller,[] => index,[] => action), Zend_Controller_Response_Http Object ([] => Array (),[] => Array (),[] => Array (),[] => Array (),[] => 200,[] => ,[] => ,[headersSentThrowsException] => 1)) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php:954]
+#7  Zend_Controller_Front->dispatch() called at [D:\www\tlumoceni-preklady.cz\lib\j3\App.php:182]
+#8  j3_App->run() called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\htdocs\index.php:11]
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 14:01:59] PHP Warning: mmm in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:29	
+Stack trace:
+#0  j3_Error_Logger->getBacktrace() called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Logger.php:71]
+#1  j3_Error_Logger->logError(512, mmm, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 29) called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:78]
+#2  j3_Error_Handler->errorHandler(512, mmm, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 29, Array ())
+#3  trigger_error(mmm, 512) called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:29]
+#4  IndexController->indexAction() called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Action.php:513]
+#5  Zend_Controller_Action->dispatch(indexAction) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:295]
+#6  Zend_Controller_Dispatcher_Standard->dispatch(Zend_Controller_Request_Http Object ([] => Array ([0] => _GET,[1] => _POST),[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/,[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs,[] => ,[] => /,[] => Array ([module] => default,[controller] => index,[action] => index),[] => ,[] => Array (),[] => 1,[] => default,[] => module,[] => index,[] => controller,[] => index,[] => action), Zend_Controller_Response_Http Object ([] => Array (),[] => Array (),[] => Array (),[] => Array (),[] => 200,[] => ,[] => ,[headersSentThrowsException] => 1)) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php:954]
+#7  Zend_Controller_Front->dispatch() called at [D:\www\tlumoceni-preklady.cz\lib\j3\App.php:182]
+#8  j3_App->run() called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\htdocs\index.php:11]
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 14:02:27] PHP Notice: mmm in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:29	
+Stack trace:
+#0  j3_Error_Logger->getBacktrace() called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Logger.php:71]
+#1  j3_Error_Logger->logError(1024, mmm, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 29) called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:78]
+#2  j3_Error_Handler->errorHandler(1024, mmm, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 29, Array ())
+#3  trigger_error(mmm, 1024) called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:29]
+#4  IndexController->indexAction() called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Action.php:513]
+#5  Zend_Controller_Action->dispatch(indexAction) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:295]
+#6  Zend_Controller_Dispatcher_Standard->dispatch(Zend_Controller_Request_Http Object ([] => Array ([0] => _GET,[1] => _POST),[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/,[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs,[] => ,[] => /,[] => Array ([module] => default,[controller] => index,[action] => index),[] => ,[] => Array (),[] => 1,[] => default,[] => module,[] => index,[] => controller,[] => index,[] => action), Zend_Controller_Response_Http Object ([] => Array (),[] => Array (),[] => Array (),[] => Array (),[] => 200,[] => ,[] => ,[headersSentThrowsException] => 1)) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php:954]
+#7  Zend_Controller_Front->dispatch() called at [D:\www\tlumoceni-preklady.cz\lib\j3\App.php:182]
+#8  j3_App->run() called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\htdocs\index.php:11]
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 14:02:40] PHP Deprecated: mmm in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:29	
+Stack trace:
+#0  j3_Error_Logger->getBacktrace() called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Logger.php:71]
+#1  j3_Error_Logger->logError(16384, mmm, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 29) called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:78]
+#2  j3_Error_Handler->errorHandler(16384, mmm, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 29, Array ())
+#3  trigger_error(mmm, 16384) called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:29]
+#4  IndexController->indexAction() called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Action.php:513]
+#5  Zend_Controller_Action->dispatch(indexAction) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:295]
+#6  Zend_Controller_Dispatcher_Standard->dispatch(Zend_Controller_Request_Http Object ([] => Array ([0] => _GET,[1] => _POST),[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/,[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs,[] => ,[] => /,[] => Array ([module] => default,[controller] => index,[action] => index),[] => ,[] => Array (),[] => 1,[] => default,[] => module,[] => index,[] => controller,[] => index,[] => action), Zend_Controller_Response_Http Object ([] => Array (),[] => Array (),[] => Array (),[] => Array (),[] => 200,[] => ,[] => ,[headersSentThrowsException] => 1)) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php:954]
+#7  Zend_Controller_Front->dispatch() called at [D:\www\tlumoceni-preklady.cz\lib\j3\App.php:182]
+#8  j3_App->run() called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\htdocs\index.php:11]
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 14:02:59] PHP Deprecated: Assigning the return value of new by reference is deprecated in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:29	
+Stack trace:
+#0  j3_Error_Logger->getBacktrace() called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Logger.php:71]
+#1  j3_Error_Logger->logError(8192, Assigning the return value of new by reference is deprecated, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 29) called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:78]
+#2  j3_Error_Handler->errorHandler(8192, Assigning the return value of new by reference is deprecated, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 29, Array ([className] => IndexController,[finalClass] => IndexController,[dispatchDir] => D:\www\tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/modules/default/controllers,[loadFile] => D:\www\tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/modules/default/controllers\IndexController.php)) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:344]
+#3  Zend_Controller_Dispatcher_Standard::loadClass() called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:344]
+#4  Zend_Controller_Dispatcher_Standard->loadClass(IndexController) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:262]
+#5  Zend_Controller_Dispatcher_Standard->dispatch(Zend_Controller_Request_Http Object ([] => Array ([0] => _GET,[1] => _POST),[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/,[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs,[] => ,[] => /,[] => Array ([module] => default,[controller] => index,[action] => index),[] => ,[] => Array (),[] => 1,[] => default,[] => module,[] => index,[] => controller,[] => index,[] => action), Zend_Controller_Response_Http Object ([] => Array (),[] => Array (),[] => Array (),[] => Array (),[] => 200,[] => ,[] => ,[headersSentThrowsException] => 1)) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php:954]
+#6  Zend_Controller_Front->dispatch() called at [D:\www\tlumoceni-preklady.cz\lib\j3\App.php:182]
+#7  j3_App->run() called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\htdocs\index.php:11]
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 14:03:01] PHP Deprecated: Assigning the return value of new by reference is deprecated in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:29	
+Stack trace:
+#0  j3_Error_Logger->getBacktrace() called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Logger.php:71]
+#1  j3_Error_Logger->logError(8192, Assigning the return value of new by reference is deprecated, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 29) called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:78]
+#2  j3_Error_Handler->errorHandler(8192, Assigning the return value of new by reference is deprecated, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 29, Array ([className] => IndexController,[finalClass] => IndexController,[dispatchDir] => D:\www\tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/modules/default/controllers,[loadFile] => D:\www\tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/modules/default/controllers\IndexController.php)) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:344]
+#3  Zend_Controller_Dispatcher_Standard::loadClass() called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:344]
+#4  Zend_Controller_Dispatcher_Standard->loadClass(IndexController) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:262]
+#5  Zend_Controller_Dispatcher_Standard->dispatch(Zend_Controller_Request_Http Object ([] => Array ([0] => _GET,[1] => _POST),[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/,[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs,[] => ,[] => /,[] => Array ([module] => default,[controller] => index,[action] => index),[] => ,[] => Array (),[] => 1,[] => default,[] => module,[] => index,[] => controller,[] => index,[] => action), Zend_Controller_Response_Http Object ([] => Array (),[] => Array (),[] => Array (),[] => Array (),[] => 200,[] => ,[] => ,[headersSentThrowsException] => 1)) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php:954]
+#6  Zend_Controller_Front->dispatch() called at [D:\www\tlumoceni-preklady.cz\lib\j3\App.php:182]
+#7  j3_App->run() called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\htdocs\index.php:11]
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 14:03:18] PHP Recoverable error: Argument 1 passed to j3_Error_Handler::__construct() must implement interface j3_Error_Logger_Interface, none given, called in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php on line 29 and defined in D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:35	
+Stack trace:
+#0  j3_Error_Logger->getBacktrace() called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Logger.php:71]
+#1  j3_Error_Logger->logError(4096, Argument 1 passed to j3_Error_Handler::__construct() must implement interface j3_Error_Logger_Interface, none given, called in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php on line 29 and defined, D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php, 35) called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:78]
+#2  j3_Error_Handler->errorHandler(4096, Argument 1 passed to j3_Error_Handler::__construct() must implement interface j3_Error_Logger_Interface, none given, called in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php on line 29 and defined, D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php, 35, Array ()) called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:35]
+#3  j3_Error_Handler->__construct() called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:29]
+#4  IndexController->indexAction() called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Action.php:513]
+#5  Zend_Controller_Action->dispatch(indexAction) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:295]
+#6  Zend_Controller_Dispatcher_Standard->dispatch(Zend_Controller_Request_Http Object ([] => Array ([0] => _GET,[1] => _POST),[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/,[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs,[] => ,[] => /,[] => Array ([module] => default,[controller] => index,[action] => index),[] => ,[] => Array (),[] => 1,[] => default,[] => module,[] => index,[] => controller,[] => index,[] => action), Zend_Controller_Response_Http Object ([] => Array (),[] => Array (),[] => Array (),[] => Array (),[] => 200,[] => ,[] => ,[headersSentThrowsException] => 1)) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php:954]
+#7  Zend_Controller_Front->dispatch() called at [D:\www\tlumoceni-preklady.cz\lib\j3\App.php:182]
+#8  j3_App->run() called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\htdocs\index.php:11]
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
+[17-Aug-2010 14:03:36] PHP Deprecated: Function ereg() is deprecated in D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:29	
+Stack trace:
+#0  j3_Error_Logger->getBacktrace() called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Logger.php:71]
+#1  j3_Error_Logger->logError(8192, Function ereg() is deprecated, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 29) called at [D:\www\tlumoceni-preklady.cz\lib\j3\Error\Handler.php:78]
+#2  j3_Error_Handler->errorHandler(8192, Function ereg() is deprecated, D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php, 29, Array ())
+#3  ereg() called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\modules\default\controllers\IndexController.php:29]
+#4  IndexController->indexAction() called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Action.php:513]
+#5  Zend_Controller_Action->dispatch(indexAction) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Dispatcher\Standard.php:295]
+#6  Zend_Controller_Dispatcher_Standard->dispatch(Zend_Controller_Request_Http Object ([] => Array ([0] => _GET,[1] => _POST),[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/,[] => /tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs,[] => ,[] => /,[] => Array ([module] => default,[controller] => index,[action] => index),[] => ,[] => Array (),[] => 1,[] => default,[] => module,[] => index,[] => controller,[] => index,[] => action), Zend_Controller_Response_Http Object ([] => Array (),[] => Array (),[] => Array (),[] => Array (),[] => 200,[] => ,[] => ,[headersSentThrowsException] => 1)) called at [D:\www\tlumoceni-preklady.cz\lib\Zend\Controller\Front.php:954]
+#7  Zend_Controller_Front->dispatch() called at [D:\www\tlumoceni-preklady.cz\lib\j3\App.php:182]
+#8  j3_App->run() called at [D:\www\tlumoceni-preklady.cz\portal\tlumoceni-preklady.cz\htdocs\index.php:11]
+Url: http://localhost/tlumoceni-preklady.cz/portal/tlumoceni-preklady.cz/htdocs/	Referer: unknown	Ip: 127.0.0.1
+----------
